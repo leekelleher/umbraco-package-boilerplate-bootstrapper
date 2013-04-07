@@ -5,8 +5,13 @@ A command-line bootstrapper for Umbraco Package Boilerplate.
 
 Usage
 -----
+At a MS-DOS command-line, call the `upbb.exe` along with the name of your new package, like so:
 
-  upbb MyAwesomePackageName
+```
+  upbb <package name>
+```
+
+The bootstrapper will scaffold out the boilerplate structure for your new Umbraco package.
 
 References
 ----------
