@@ -89,15 +89,55 @@ namespace Our.Umbraco.Package.Boilerplate.Bootstrapper
 			//
 
 			// visual studio solution file
+			var csprojGuid = Guid.NewGuid().ToString("B").ToUpper();
 			var solutionFile = Path.Combine(targetFolder, "Our.Umbraco.Package.sln");
 			if (File.Exists(solutionFile))
 			{
+				var sln = File.ReadAllText(solutionFile);
+				sln = sln.Replace("{C0A8BDDE-A89F-4341-8912-A7C05E5CC25F}", Guid.NewGuid().ToString("B").ToUpper());
+				sln = sln.Replace("{0F945291-F264-44AF-9C6A-B1BB0B9E785E}", Guid.NewGuid().ToString("B").ToUpper());
+				sln = sln.Replace("{04F1C33F-EF3D-4F85-90B6-D258F06752D7}", Guid.NewGuid().ToString("B").ToUpper());
+				sln = sln.Replace("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}", Guid.NewGuid().ToString("B").ToUpper());
+				sln = sln.Replace("{E588D5C0-D4C4-4CD2-9416-3D8C479CBA06}", csprojGuid);
+				sln = sln.Replace("Our.Umbraco.Package", projectNamespace);
+				File.WriteAllText(solutionFile, sln);
+
 				File.Move(solutionFile, Path.Combine(targetFolder, string.Concat(projectNamespace, ".sln")));
-				Console.WriteLine("Updated the project solution file.");
+				Console.WriteLine("Updated the solution file.");
+			}
+
+			// csproj
+			var csprojFolder = Path.Combine(targetFolder, "src", "Our.Umbraco.Package");
+			if (Directory.Exists(csprojFolder))
+			{
+				var csprojFile = Path.Combine(csprojFolder, "Our.Umbraco.Package.csproj");
+				if (File.Exists(csprojFile))
+				{
+					var csproj = File.ReadAllText(csprojFile);
+					csproj = csproj.Replace("{E588D5C0-D4C4-4CD2-9416-3D8C479CBA06}", csprojGuid);
+					csproj = csproj.Replace("Our.Umbraco.Package", projectNamespace);
+					File.WriteAllText(csprojFile, csproj);
+
+					var assemblyInfoFile = Path.Combine(csprojFolder, "Properties", "AssemblyInfo.cs");
+					if (File.Exists(assemblyInfoFile))
+					{
+						var assemblyInfo = File.ReadAllText(assemblyInfoFile);
+						assemblyInfo = assemblyInfo.Replace("Our Umbraco Package", projectName);
+						assemblyInfo = assemblyInfo.Replace("Our.Umbraco.Package", projectNamespace);
+						assemblyInfo = assemblyInfo.Replace("2013", DateTime.Today.Year.ToString());
+						assemblyInfo = assemblyInfo.Replace("87f49b1c-c55e-4e77-9771-0e40dd287006", Guid.NewGuid().ToString("D").ToUpper());
+						File.WriteAllText(assemblyInfoFile, assemblyInfo);
+						Console.WriteLine("Updated: {0}", Path.GetFileName(assemblyInfoFile));
+					}
+
+					File.Move(csprojFile, Path.Combine(csprojFolder, string.Concat(projectNamespace, ".csproj")));
+					Directory.Move(csprojFolder, Path.Combine(targetFolder, "src", projectNamespace));
+					Console.WriteLine("Updated the project file.");
+				}
 			}
 
 			// package.xml
-			var packageXml = Path.Combine(targetFolder, "Build", "package.xml");
+			var packageXml = Path.Combine(targetFolder, "package.xml");
 			if (File.Exists(packageXml))
 			{
 				var xml = File.ReadAllText(packageXml);
@@ -107,7 +147,7 @@ namespace Our.Umbraco.Package.Boilerplate.Bootstrapper
 			}
 
 			// package.build.xml
-			var buildXml = Path.Combine(targetFolder, "Build", "package.build.xml");
+			var buildXml = Path.Combine(targetFolder, "Build.proj");
 			if (File.Exists(buildXml))
 			{
 				var xml = File.ReadAllText(buildXml);
@@ -115,6 +155,14 @@ namespace Our.Umbraco.Package.Boilerplate.Bootstrapper
 				xml = xml.Replace("StartDate=\"10/09/2012\"", string.Format("StartDate=\"{0:dd/MM/yyyy}\"", DateTime.Today));
 				File.WriteAllText(buildXml, xml);
 				Console.WriteLine("Updated: {0}", Path.GetFileName(buildXml));
+			}
+
+			// remove the .gitignore from the /lib folder
+			var libGitIgnore = Path.Combine(targetFolder, "lib", ".gitignore");
+			if (File.Exists(libGitIgnore))
+			{
+				File.Delete(libGitIgnore);
+				Console.WriteLine("Package boilerplate tidy-up complete.");
 			}
 
 			// ta-dah
