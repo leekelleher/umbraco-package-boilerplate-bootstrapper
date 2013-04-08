@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="CopyFiles" ToolsVersion="4.0">
+
+	<PropertyGroup>
+		<RootDir>$(MSBuildProjectDirectory)</RootDir>
+		<BuildDir>$(RootDir)\build</BuildDir>
+	</PropertyGroup>
+
+	<!-- TARGETS -->
+
+	<!-- CLEAN -->
+	<Target Name="Clean">
+		<RemoveDir Directories="$(BuildDir)" Condition="Exists('$(BuildDir)')" />
+		<MakeDir Directories="$(BuildDir)" />
+	</Target>
+
+	<!-- COMPILE -->
+	<Target Name="Compile" DependsOnTargets="Clean">
+		<MSBuild Projects="$(RootDir)\Our.Umbraco.Package.Boilerplate.Bootstrapper.sln" Properties="Configuration=Release" />
+	</Target>
+
+	<!-- COPY FILES -->
+	<Target Name="CopyFiles" DependsOnTargets="Compile">
+		<ItemGroup>
+			<ExecFiles Include="$(RootDir)\src\bin\Debug\upbb.exe" />
+		</ItemGroup>
+		<Copy SourceFiles="@(ExecFiles)" DestinationFolder="$(BuildDir)" />
+	</Target>
+
+</Project>
