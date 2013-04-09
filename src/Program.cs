@@ -90,7 +90,7 @@ namespace Our.Umbraco.Package.Boilerplate.Bootstrapper
 
 			// visual studio solution file
 			var csprojGuid = Guid.NewGuid().ToString("B").ToUpper();
-			var solutionFile = Path.Combine(targetFolder, "Our.Umbraco.Package.sln");
+			var solutionFile = Path.Combine(targetFolder, "src", "Our.Umbraco.Package.sln");
 			if (File.Exists(solutionFile))
 			{
 				var sln = File.ReadAllText(solutionFile);
@@ -102,7 +102,7 @@ namespace Our.Umbraco.Package.Boilerplate.Bootstrapper
 				sln = sln.Replace("Our.Umbraco.Package", projectNamespace);
 				File.WriteAllText(solutionFile, sln);
 
-				File.Move(solutionFile, Path.Combine(targetFolder, string.Concat(projectNamespace, ".sln")));
+				File.Move(solutionFile, Path.Combine(targetFolder, "src", string.Concat(projectNamespace, ".sln")));
 				Console.WriteLine("Updated the solution file.");
 			}
 
@@ -137,7 +137,7 @@ namespace Our.Umbraco.Package.Boilerplate.Bootstrapper
 			}
 
 			// package.xml
-			var packageXml = Path.Combine(targetFolder, "package.xml");
+			var packageXml = Path.Combine(targetFolder, "package", "package.xml");
 			if (File.Exists(packageXml))
 			{
 				var xml = File.ReadAllText(packageXml);
@@ -147,12 +147,12 @@ namespace Our.Umbraco.Package.Boilerplate.Bootstrapper
 			}
 
 			// package.build.xml
-			var buildXml = Path.Combine(targetFolder, "Build.proj");
+			var buildXml = Path.Combine(targetFolder, "package", "package.proj");
 			if (File.Exists(buildXml))
 			{
 				var xml = File.ReadAllText(buildXml);
 				xml = xml.Replace("Our.Umbraco.Package", projectNamespace);
-				xml = xml.Replace("StartDate=\"10/09/2012\"", string.Format("StartDate=\"{0:dd/MM/yyyy}\"", DateTime.Today));
+				xml = xml.Replace("StartDate=\"2012-09-10\"", string.Format("StartDate=\"{0:yyyy-MM-dd}\"", DateTime.Today));
 				File.WriteAllText(buildXml, xml);
 				Console.WriteLine("Updated: {0}", Path.GetFileName(buildXml));
 			}
