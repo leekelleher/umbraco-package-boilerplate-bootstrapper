@@ -22,7 +22,7 @@
 	<!-- COPY FILES -->
 	<Target Name="CopyFiles" DependsOnTargets="Compile">
 		<ItemGroup>
-			<ExecFiles Include="$(RootDir)\src\bin\Debug\upbb.exe" />
+			<ExecFiles Include="$(RootDir)\src\bin\Release\upbb.exe" />
 		</ItemGroup>
 		<Copy SourceFiles="@(ExecFiles)" DestinationFolder="$(BuildDir)" />
 	</Target>

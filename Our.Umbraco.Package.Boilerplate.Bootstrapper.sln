@@ -3,6 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Our.Umbraco.Package.Boilerplate.Bootstrapper", "src\Our.Umbraco.Package.Boilerplate.Bootstrapper.csproj", "{06AC0EAF-94EF-493F-A50D-055DB0D402AC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9F1C2E66-F190-48F3-8189-5486B875F0E2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{B19F86E1-3D2A-40BD-B54A-B2F708C86B95}"
+	ProjectSection(SolutionItems) = preProject
+		Build.cmd = Build.cmd
+		Build.proj = Build.proj
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{397F9938-D3FA-4409-ADA7-46400D8CEC26}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.md = LICENSE.md
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -16,5 +30,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B19F86E1-3D2A-40BD-B54A-B2F708C86B95} = {9F1C2E66-F190-48F3-8189-5486B875F0E2}
+		{397F9938-D3FA-4409-ADA7-46400D8CEC26} = {9F1C2E66-F190-48F3-8189-5486B875F0E2}
 	EndGlobalSection
 EndGlobal
