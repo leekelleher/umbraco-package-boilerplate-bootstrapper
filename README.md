@@ -1,6 +1,6 @@
 # Umbraco Package Boilerplate Bootstrapper
 
-A command-line bootstrapper for Umbraco Package Boilerplate.
+A command-line bootstrapper for [Umbraco Package Boilerplate](https://github.com/leekelleher/umbraco-package-boilerplate).
 
 ## Build
 
