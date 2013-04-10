@@ -49,7 +49,6 @@ namespace Our.Umbraco.Package.Boilerplate.Bootstrapper
 				using (var client = new WebClient())
 				{
 					Console.Write("Downloading package boilerplate.");
-					// TOOD: [LK] Use aync? Display the percentage of download?
 					client.DownloadFile(new Uri(downloadUrl), tmpZip);
 					Console.WriteLine(" Done.");
 				}
@@ -157,6 +156,20 @@ namespace Our.Umbraco.Package.Boilerplate.Bootstrapper
 				Console.WriteLine("Updated: {0}", Path.GetFileName(buildXml));
 			}
 
+			// update the ignore rules in .gitignore and .hgignore
+			var ignoreFiles = new[] { ".gitignore", ".hgignore" };
+			foreach (var ignoreFile in ignoreFiles)
+			{
+				var ignorePath = Path.Combine(targetFolder, ignoreFile);
+				if (File.Exists(ignorePath))
+				{
+					var rules = File.ReadAllText(ignorePath);
+					rules = rules.Replace("Package_Name_*.zip", string.Concat(projectName.Replace(" ", "_"), "_*.zip"));
+					File.WriteAllText(ignorePath, rules);
+					Console.WriteLine("Updated: {0}", Path.GetFileName(ignorePath));
+				}
+			}
+
 			// remove the .gitignore from the /lib folder
 			var libGitIgnore = Path.Combine(targetFolder, "lib", ".gitignore");
 			if (File.Exists(libGitIgnore))
@@ -166,7 +179,7 @@ namespace Our.Umbraco.Package.Boilerplate.Bootstrapper
 			}
 
 			// ta-dah
-			Console.WriteLine("All done! Go forth an build a package for Umbraco!");
+			Console.WriteLine("All done! Go forth an build an Umbraco package!");
 			Console.ReadLine();
 		}
 
