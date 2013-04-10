@@ -8,6 +8,8 @@ At present, to build the `upbb.exe` bootstrapper, you will need to download the 
 
 Once you have the `upbb.exe`, you can XCOPY it wherever you like. For global access to the bootstrapper, you can add the target directory to your `%PATH%` environment variable.
 
+In future there will be a downloadable executable, but currently the code-base is very much still a work-in-progress.
+
 ## Usage
 
 At a MS-DOS command-line, call the `upbb.exe` along with the name of your new package, like so:
