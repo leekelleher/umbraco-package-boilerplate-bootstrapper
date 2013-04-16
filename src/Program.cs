@@ -13,7 +13,10 @@ namespace Our.Umbraco.Package.Boilerplate.Bootstrapper
 	{
 		static void Main(string[] args)
 		{
+			//
 			// TODO: [LK] Make these consts configurable (via CLI args)
+			//
+
 			const string github = "https://github.com";
 			const string username = "leekelleher";
 			const string repo = "umbraco-package-boilerplate";
@@ -170,15 +173,21 @@ namespace Our.Umbraco.Package.Boilerplate.Bootstrapper
 				}
 			}
 
-			// remove the .gitignore from the /lib folder
-			var libGitIgnore = Path.Combine(targetFolder, "lib", ".gitignore");
-			if (File.Exists(libGitIgnore))
+			// files to be removed
+			var removals = new[] { "docs\\.gitignore", "lib\\.gitignore" };
+			foreach (var removal in removals)
 			{
-				File.Delete(libGitIgnore);
-				Console.WriteLine("Package boilerplate tidy-up complete.");
+				var removalPath = Path.Combine(targetFolder, removal);
+				if (File.Exists(removalPath))
+				{
+					File.Delete(removalPath);
+					Console.WriteLine("Removed: {0}", Path.GetFileName(removalPath));
+				}
 			}
+			Console.WriteLine("Package boilerplate tidy-up complete.");
 
-			// ta-dah
+
+			// Ta-dah
 			Console.WriteLine("All done! Go forth an build an Umbraco package!");
 			Console.ReadLine();
 		}
