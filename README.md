@@ -14,7 +14,7 @@ In future there will be a downloadable executable, but currently the code-base i
 
 At a MS-DOS command-line, call the `upbb.exe` along with the name of your new package, like so:
 
-	upbb <package name>
+	upbb <<PascalCase.PackageName>>
 
 The bootstrapper will scaffold out the boilerplate structure for your new Umbraco package.
 
@@ -26,3 +26,4 @@ This project is open to community contributions and collaboration. Feel free to 
 
 * [Umbraco Package Boilerplate](https://github.com/leekelleher/umbraco-package-boilerplate)
 * [Matt Brailsford](https://github.com/mattbrailsford)'s blog post: [Automating Umbraco Package Creation Using MSBuild](http://blog.mattbrailsford.com/2010/11/13/automating-umbraco-package-creation-using-msbuild/)
+* [Colin Bowern](https://github.com/colinbowern)'s blog post: [.NET Solution Boilerplate](http://www.colinbowern.com/posts/net-solution-boilerplate)
