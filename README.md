@@ -1,5 +1,7 @@
 # Umbraco Package Boilerplate Bootstrapper
 
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
 A command-line bootstrapper for [Umbraco Package Boilerplate](https://github.com/leekelleher/umbraco-package-boilerplate).
 
 ## Build
